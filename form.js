@@ -9,11 +9,13 @@ const parseDate = (dateString) => {
   };
 };
 
+const parseHobbies = (hobbiesString) => hobbiesString.split(',');
+
 const writeToJSON = (inputs) => {
   const record = {};
   record.name = inputs.name;
   record.DOB = parseDate(inputs.DOB);
-  record.hobbies = inputs.hobbies.split(',');
+  record.hobbies = parseHobbies(inputs.hobbies);
   fs.writeFileSync('./formRecord.json', JSON.stringify(record), 'utf8');
 };
 
