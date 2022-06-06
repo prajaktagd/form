@@ -1,9 +1,19 @@
 const fs = require('fs');
 
+const parseDate = (dateString) => {
+  const date = dateString.split('-');
+  return {
+    year: +date[0],
+    month: +date[1],
+    day: +date[2]
+  };
+};
+
 const writeToJSON = (inputs) => {
   const record = {};
   record.name = inputs.name;
-  record.DOB = inputs.DOB.split('-');
+  record.DOB = parseDate(inputs.DOB);
+  record.hobbies = inputs.hobbies.split(',');
   fs.writeFileSync('./formRecord.json', JSON.stringify(record), 'utf8');
 };
 
@@ -33,8 +43,9 @@ const readInput = (fields, processInput) => {
   });
 };
 
-const fields = ['name', 'DOB', 'hobbies'];
-readInput(fields, writeToJSON);
+const main = () => {
+  const fields = ['name', 'DOB', 'hobbies'];
+  readInput(fields, writeToJSON);
+};
 
-exports.readInput = readInput;
-
+main();
