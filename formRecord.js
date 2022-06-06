@@ -27,26 +27,38 @@ const parseEachInput = (inputs) => {
 class FormRecord {
   #fields;
   #inputs;
+  #labels;
+  #index;
 
   constructor(fields) {
     this.#fields = fields;
+    this.#index = 0;
+    this.#labels = [];
     this.#inputs = {};
   }
 
-  hasExceeded(index) {
-    return index >= this.#fields.length;
+  currentLabel() {
+    return this.#labels[this.#index];
   }
 
-  getFieldOf(index) {
-    return this.#fields[index];
+  currentField() {
+    return this.#fields[this.#index];
+  }
+
+  incrementIndex() {
+    this.#index++;
+  }
+
+  hasExceeded() {
+    return this.#index >= this.#fields.length;
   }
 
   generateLabels() {
-    return this.#fields.map((field) => `Please enter your ${field}: `);
+    this.#labels = this.#fields.map((field) => `Please enter your ${field}: `);
   }
 
-  addInput(field, input) {
-    this.#inputs[field] = input;
+  addInput(input) {
+    this.#inputs[this.currentField()] = input;
   }
 
   writeToJSON() {

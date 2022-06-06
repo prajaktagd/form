@@ -5,7 +5,7 @@ const isValidDate = (date) => /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(date);
 const isValidMobNo = (mobNo) => /^[0-9]{10}$/.test(mobNo);
 const isNotEmpty = (input) => input !== '';
 
-const isValidInputFor = (input, field) => {
+const isValidInputFor = (field, input) => {
   if (field === 'name') {
     return isValidName(input);
   }
@@ -20,22 +20,19 @@ const isValidInputFor = (input, field) => {
 
 const readInput = (formRecord) => {
   process.stdin.setEncoding('utf8');
-
-  const labels = formRecord.generateLabels();
-  let index = 0;
-  process.stdout.write(labels[index]);
+  process.stdout.write(formRecord.currentLabel());
 
   process.stdin.on('data', (chunk) => {
-    const field = formRecord.getFieldOf(index);
+    const field = formRecord.currentField();
     const input = chunk.trimEnd();
-    if (isValidInputFor(input, field)) {
-      formRecord.addInput(field, input);
-      index++;
+    if (isValidInputFor(field, input)) {
+      formRecord.addInput(input);
+      formRecord.incrementIndex();
     }
-    if (formRecord.hasExceeded(index)) {
+    if (formRecord.hasExceeded()) {
       return;
     }
-    process.stdout.write(labels[index]);
+    process.stdout.write(formRecord.currentLabel());
   });
 
   process.stdin.on('end', () => {
@@ -48,6 +45,7 @@ const main = () => {
   const fields = ['name', 'DOB', 'hobbies', 'mobile no', 'address line 1',
     'address line 2'];
   const formRecord = new FormRecord(fields);
+  formRecord.generateLabels();
   readInput(formRecord);
 };
 
