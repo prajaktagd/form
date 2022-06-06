@@ -36,11 +36,19 @@ class FormRecord {
     this.#inputs[field] = input;
   }
 
+  getAddress() {
+    const addressLine1 = this.#inputs['address line 1'];
+    const addressLine2 = this.#inputs['address line 2'];
+    return `${addressLine1}\n${addressLine2}`;
+  }
+
   writeToJSON() {
     const record = {};
     record.name = this.#inputs.name;
     record.DOB = parseDate(this.#inputs.DOB);
     record.hobbies = parseHobbies(this.#inputs.hobbies);
+    record.mobileNo = this.#inputs['mobile no'];
+    record.address = this.getAddress();
     fs.writeFileSync('./formRecord.json', JSON.stringify(record), 'utf8');
   }
 }
