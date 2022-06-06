@@ -18,17 +18,21 @@ const isValidInputFor = (field, input) => {
   return isNotEmpty(input);
 };
 
+const addValidInput = (chunk, formRecord) => {
+  const field = formRecord.currentField();
+  const input = chunk.trimEnd();
+  if (isValidInputFor(field, input)) {
+    formRecord.addInput(input);
+    formRecord.incrementIndex();
+  }
+};
+
 const readInput = (formRecord) => {
   process.stdin.setEncoding('utf8');
   process.stdout.write(formRecord.currentLabel());
 
   process.stdin.on('data', (chunk) => {
-    const field = formRecord.currentField();
-    const input = chunk.trimEnd();
-    if (isValidInputFor(field, input)) {
-      formRecord.addInput(input);
-      formRecord.incrementIndex();
-    }
+    addValidInput(chunk, formRecord);
     if (formRecord.hasExceeded()) {
       return;
     }
