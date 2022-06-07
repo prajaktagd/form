@@ -32,10 +32,6 @@ class FormRecord {
     this.#inputs = {};
   }
 
-  currentField() {
-    return this.#fields[this.#index].field;
-  }
-
   incrementIndex() {
     this.#index++;
   }
@@ -49,7 +45,8 @@ class FormRecord {
   }
 
   addInput(input) {
-    this.#inputs[this.currentField()] = input;
+    const currentField = this.#fields[this.#index].field;
+    this.#inputs[currentField] = input;
   }
 
   isValidInput(input) {
