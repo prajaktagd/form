@@ -1,27 +1,9 @@
+const fs = require('fs');
 const { FormRecord } = require('./formRecord.js');
 
-const isValidName = (name) => /^[a-zA-Z]{5,}$/.test(name);
-const isValidDate = (date) => /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(date);
-const isValidMobNo = (mobNo) => /^[0-9]{10}$/.test(mobNo);
-const isNotEmpty = (input) => input !== '';
-
-const isValidInputFor = (field, input) => {
-  if (field === 'name') {
-    return isValidName(input);
-  }
-  if (field === 'DOB') {
-    return isValidDate(input);
-  }
-  if (field === 'mobile no') {
-    return isValidMobNo(input);
-  }
-  return isNotEmpty(input);
-};
-
 const addValidInput = (chunk, formRecord) => {
-  const field = formRecord.currentField();
   const input = chunk.trimEnd();
-  if (isValidInputFor(field, input)) {
+  if (formRecord.isValidInput(input)) {
     formRecord.addInput(input);
     formRecord.incrementIndex();
   }
@@ -40,7 +22,8 @@ const readInput = (formRecord) => {
   });
 
   process.stdin.on('end', () => {
-    formRecord.writeToJSON();
+    const record = formRecord.parseToJSON();
+    fs.writeFileSync('./formRecord.json', JSON.stringify(record), 'utf8');
     console.log('Thank You');
   });
 };

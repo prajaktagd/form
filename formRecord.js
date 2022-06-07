@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const parseDate = (dateString) => {
   const date = dateString.split('-');
   return {
@@ -23,6 +21,11 @@ const parseEachInput = (inputs) => {
   record.address = getAddress(inputs);
   return record;
 };
+
+const isValidName = (name) => /^[a-zA-Z]{5,}$/.test(name);
+const isValidDate = (date) => /^[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(date);
+const isValidMobNo = (mobNo) => /^[0-9]{10}$/.test(mobNo);
+const isNotEmpty = (input) => input !== '';
 
 class FormRecord {
   #fields;
@@ -61,9 +64,21 @@ class FormRecord {
     this.#inputs[this.currentField()] = input;
   }
 
-  writeToJSON() {
-    const record = parseEachInput(this.#inputs);
-    fs.writeFileSync('./formRecord.json', JSON.stringify(record), 'utf8');
+  isValidInput(input) {
+    if (this.currentField() === 'name') {
+      return isValidName(input);
+    }
+    if (this.currentField() === 'DOB') {
+      return isValidDate(input);
+    }
+    if (this.currentField() === 'mobile no') {
+      return isValidMobNo(input);
+    }
+    return isNotEmpty(input);
+  }
+
+  parseToJSON() {
+    return parseEachInput(this.#inputs);
   }
 }
 
