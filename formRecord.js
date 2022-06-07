@@ -30,18 +30,12 @@ const isNotEmpty = (input) => input !== '';
 class FormRecord {
   #fields;
   #inputs;
-  #labels;
   #index;
 
   constructor(fields) {
     this.#fields = fields;
     this.#index = 0;
-    this.#labels = [];
     this.#inputs = {};
-  }
-
-  currentLabel() {
-    return this.#labels[this.#index];
   }
 
   currentField() {
@@ -56,8 +50,8 @@ class FormRecord {
     return this.#index >= this.#fields.length;
   }
 
-  generateLabels() {
-    this.#labels = this.#fields.map((field) => `Please enter your ${field}: `);
+  generateLabel() {
+    return `Please enter your ${this.currentField()}: `;
   }
 
   addInput(input) {

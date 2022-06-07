@@ -11,14 +11,14 @@ const addValidInput = (chunk, formRecord) => {
 
 const readInput = (formRecord) => {
   process.stdin.setEncoding('utf8');
-  process.stdout.write(formRecord.currentLabel());
+  process.stdout.write(formRecord.generateLabel());
 
   process.stdin.on('data', (chunk) => {
     addValidInput(chunk, formRecord);
     if (formRecord.hasExceeded()) {
       return;
     }
-    process.stdout.write(formRecord.currentLabel());
+    process.stdout.write(formRecord.generateLabel());
   });
 
   process.stdin.on('end', () => {
@@ -32,7 +32,6 @@ const main = () => {
   const fields = ['name', 'DOB', 'hobbies', 'mobile no', 'address line 1',
     'address line 2'];
   const formRecord = new FormRecord(fields);
-  formRecord.generateLabels();
   readInput(formRecord);
 };
 
