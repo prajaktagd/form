@@ -7,32 +7,32 @@ const formFields = [
   {
     field: 'name',
     label: 'Please enter your name: ',
-    isValid: isValidName
+    validate: isValidName
   },
   {
     field: 'DOB',
     label: 'Please enter your DOB(YYYY-MM-DD): ',
-    isValid: isValidDate
+    validate: isValidDate
   },
   {
     field: 'hobbies',
     label: 'Please enter your hobbies: ',
-    isValid: isNotEmpty
+    validate: isNotEmpty
   },
   {
     field: 'mobileNo',
     label: 'Please enter your mobile number: ',
-    isValid: isValidMobNo
+    validate: isValidMobNo
   },
   {
     field: 'addressLine1',
     label: 'Please enter address line 1: ',
-    isValid: isNotEmpty
+    validate: isNotEmpty
   },
   {
     field: 'addressLine2',
     label: 'Please enter address line 2: ',
-    isValid: isNotEmpty
+    validate: isNotEmpty
   },
 ];
 

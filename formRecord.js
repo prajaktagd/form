@@ -50,7 +50,7 @@ class FormRecord {
   }
 
   isValidInput(input) {
-    return this.#fields[this.#index].isValid(input);
+    return this.#fields[this.#index].validate(input);
   }
 
   parseToJSON() {
