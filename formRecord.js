@@ -1,35 +1,12 @@
-const parseDate = (dateString) => {
-  const date = dateString.split('-');
-  return {
-    year: +date[0],
-    month: +date[1],
-    day: +date[2]
-  };
-};
-
-const parseHobbies = (hobbiesString) => hobbiesString.split(',');
-
-const getAddress = (inputs) => `${inputs.addressLine1}\n${inputs.addressLine2}`;
-
-const parseEachInput = (inputs) => {
-  const record = {};
-  record.name = inputs.name;
-  record.DOB = parseDate(inputs.DOB);
-  record.hobbies = parseHobbies(inputs.hobbies);
-  record.mobileNo = inputs.mobileNo;
-  record.address = getAddress(inputs);
-  return record;
-};
-
 class FormRecord {
   #fields;
-  #inputs;
   #index;
+  #record;
 
   constructor(fields) {
     this.#fields = fields;
     this.#index = 0;
-    this.#inputs = {};
+    this.#record = {};
   }
 
   incrementIndex() {
@@ -45,16 +22,18 @@ class FormRecord {
   }
 
   addInput(input) {
-    const currentField = this.#fields[this.#index].field;
-    this.#inputs[currentField] = input;
+    const fieldData = this.#fields[this.#index];
+    this.#record[fieldData.field] = fieldData.parse(input);
   }
 
   isValidInput(input) {
     return this.#fields[this.#index].validate(input);
   }
 
-  parseToJSON() {
-    return parseEachInput(this.#inputs);
+  getJSON() {
+    const { addressLine1, addressLine2, ...record } = this.#record;
+    record.address = `${addressLine1}\n${addressLine2}`;
+    return record;
   }
 }
 

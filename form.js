@@ -23,7 +23,7 @@ const readInput = (formRecord) => {
   });
 
   process.stdin.on('end', () => {
-    const record = formRecord.parseToJSON();
+    const record = formRecord.getJSON();
     fs.writeFileSync('./formRecord.json', JSON.stringify(record), 'utf8');
     console.log('Thank You');
   });
