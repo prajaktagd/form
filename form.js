@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { FormRecord } = require('./formRecord.js');
+const { formFields } = require('./formFields.js');
 
 const addValidInput = (chunk, formRecord) => {
   const input = chunk.trimEnd();
@@ -11,14 +12,14 @@ const addValidInput = (chunk, formRecord) => {
 
 const readInput = (formRecord) => {
   process.stdin.setEncoding('utf8');
-  process.stdout.write(formRecord.generateLabel());
+  process.stdout.write(formRecord.getLabel());
 
   process.stdin.on('data', (chunk) => {
     addValidInput(chunk, formRecord);
     if (formRecord.hasExceeded()) {
       return;
     }
-    process.stdout.write(formRecord.generateLabel());
+    process.stdout.write(formRecord.getLabel());
   });
 
   process.stdin.on('end', () => {
@@ -29,9 +30,7 @@ const readInput = (formRecord) => {
 };
 
 const main = () => {
-  const fields = ['name', 'DOB', 'hobbies', 'mobile no', 'address line 1',
-    'address line 2'];
-  const formRecord = new FormRecord(fields);
+  const formRecord = new FormRecord(formFields);
   readInput(formRecord);
 };
 
