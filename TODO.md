@@ -1,11 +1,17 @@
 **TODO**
 
-- [ ] Wire registerResponse to main function
-- [ ] Write the form to the json file after taking all responses
-- [ ] Move stdin in main function
+- [ ] Validate all responses
+- [ ] Test all methods of Form entity
+- [ ] Test all methods of Field entity
+- [ ] Abstract the creation of form
+- [ ] Add mobile number field
+- [ ] Add address multiline field
 
 **DONE**
 
+- [x] Wire registerResponse to main function
+- [x] Write the form to the json file after taking all responses
+- [x] Move stdin in main function
 - [x] Move main function to separate file
 - [x] Remove `end` event and destroy the input stream
 - [x] Abstract registerResponse function from readInput
