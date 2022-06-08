@@ -39,4 +39,16 @@ describe('registerResponse', () => {
     registerResponse(form, response, logger, identity);
     assert.deepStrictEqual(logs, ['Invalid Response', 'Enter name']);
   });
+
+  it('should display thank you at the end of filling complete form', () => {
+    const nameField = new Field('name', 'Enter name');
+    const form = new Form(nameField);
+    const identity = (text) => text;
+    const logger = (text) => logs.push(text);
+    const response = 'ABC';
+    const logs = [];
+
+    registerResponse(form, response, logger, identity);
+    assert.deepStrictEqual(logs, ['Thank you']);
+  });
 });

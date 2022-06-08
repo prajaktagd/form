@@ -18,8 +18,9 @@ const registerResponse = (form, response, logger, onResponseReady) => {
     return;
   }
 
-  onResponseReady(form.getResponses());
   process.stdin.destroy();
+  onResponseReady(form.getResponses());
+  logger('Thank you');
 };
 
 const main = () => {
