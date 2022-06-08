@@ -7,14 +7,17 @@ const writeForm = (form) => {
   fs.writeFileSync('./form.json', JSON.stringify(form), 'utf8');
 };
 
-const main = () => {
+const fillForm = () => {
   const form = createForm(formFields);
   process.stdin.setEncoding('utf8');
 
   console.log(form.getCurrentPrompt());
-  process.stdin.on('data', (response) => {
-    registerResponse(form, response.trimEnd(), console.log, writeForm);
+  process.stdin.on('data', (chunk) => {
+    const responses = chunk.trimEnd().split('\n');
+    responses.forEach((response) => {
+      registerResponse(form, response, console.log, writeForm);
+    });
   });
 };
 
-main();
+fillForm();
