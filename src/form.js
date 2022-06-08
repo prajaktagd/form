@@ -11,11 +11,11 @@ class Form {
     return this.#fields[this.#currentIndex];
   }
 
-  getCurrentLabel() {
-    return this.#getCurrentField.getLabel();
+  getCurrentPrompt() {
+    return this.#getCurrentField().getPrompt();
   }
 
-  isFormFilled() {
+  isFilled() {
     return this.#fields.every((field) => field.isFilled());
   }
 

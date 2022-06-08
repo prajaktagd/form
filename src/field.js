@@ -11,6 +11,14 @@ class Field {
     this.#response = null;
   }
 
+  getPrompt() {
+    return this.#prompt;
+  }
+
+  isFilled() {
+    return this.#response !== null;
+  }
+
   fill(response) {
     this.#response = response;
   }

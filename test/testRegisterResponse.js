@@ -13,4 +13,30 @@ describe('registerResponse', () => {
     registerResponse(form, response, identity, identity);
     assert.deepStrictEqual(form.getResponses(), { name: 'Prince' });
   });
+
+  it('should display next prompt', () => {
+    const nameField = new Field('name', 'Enter name');
+    const dobField = new Field('dob', 'Enter DOB');
+    const form = new Form(nameField, dobField);
+    const identity = (text) => text;
+    const logger = (text) => logs.push(text);
+    const response = 'Prince';
+    const logs = [];
+
+    registerResponse(form, response, logger, identity);
+    assert.deepStrictEqual(logs, ['Enter DOB']);
+  });
+
+  it('should display error of invalid response for the current field', () => {
+    const isMinLengthFive = (text) => text.length >= 5;
+    const nameField = new Field('name', 'Enter name', isMinLengthFive);
+    const form = new Form(nameField);
+    const identity = (text) => text;
+    const logger = (text) => logs.push(text);
+    const response = 'ABC';
+    const logs = [];
+
+    registerResponse(form, response, logger, identity);
+    assert.deepStrictEqual(logs, ['Invalid Response', 'Enter name']);
+  });
 });

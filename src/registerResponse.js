@@ -7,13 +7,25 @@ const writeForm = (form) => {
 };
 
 const registerResponse = (form, response, logger, onResponseReady) => {
-  form.fillCurrentField(response);
+  try {
+    form.fillCurrentField(response);
+  } catch (error) {
+    logger(error.message);
+  }
+
+  if (!form.isFilled()) {
+    logger(form.getCurrentPrompt());
+    return;
+  }
+
+  onResponseReady(form.getResponses());
+  process.stdin.destroy();
 };
 
 const main = () => {
   const form = new Form();
   process.stdin.setEncoding('utf8');
-  process.stdout.write(form.getCurrentLabel());
+  process.stdout.write(form.getCurrentPrompt());
 
   process.stdin.on('data', (response) => {
     registerResponse(form, response.trimEnd(), console.log, writeForm);
