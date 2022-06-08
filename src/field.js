@@ -1,13 +1,18 @@
+const alwaysTrue = () => true;
+const identity = (text) => text;
+
 class Field {
   #name;
   #prompt;
   #validate;
+  #parse;
   #response;
 
-  constructor(name, prompt, validate = () => true) {
+  constructor(name, prompt, validate = alwaysTrue, parse = identity) {
     this.#name = name;
     this.#prompt = prompt;
     this.#validate = validate;
+    this.#parse = parse;
     this.#response = null;
   }
 
@@ -34,7 +39,7 @@ class Field {
   }
 
   getResponse() {
-    return { name: this.#name, response: this.#response };
+    return { name: this.#name, response: this.#parse(this.#response) };
   }
 }
 

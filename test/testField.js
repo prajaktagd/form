@@ -50,4 +50,13 @@ describe('Field', () => {
     assert.ok(!nameField.isValid('ABC'));
     assert.ok(nameField.isValid('ABCDE'));
   });
+
+  it('should provide parsed hobbies', () => {
+    const identity = (text) => text;
+    const splitByCommas = (text) => text.split(',');
+    const hobbiesField = new Field('hobbies', 'likes', identity, splitByCommas);
+    hobbiesField.fill('drawing,sketching');
+    const expected = { name: 'hobbies', response: ['drawing', 'sketching'] };
+    assert.deepStrictEqual(hobbiesField.getResponse(), expected);
+  });
 });
