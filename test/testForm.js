@@ -45,7 +45,7 @@ describe('Form', () => {
     const nameField = new Field('name', 'Enter name');
     const dobField = new Field('dob', 'Enter dob');
     const form = new Form(nameField, dobField);
-    form.fillCurrentField('ABC');
+    form.fillCurrentField('Prince');
     form.fillCurrentField('2011-11-11');
     assert.ok(form.isFilled());
   });
