@@ -1,12 +1,13 @@
 **TODO**
 
-- [ ] Validate all responses
+- [ ] Parse the response
 - [ ] Abstract the creation of form
 - [ ] Add mobile number field
 - [ ] Add address multiline field
 
 **DONE**
 
+- [x] Validate all responses
 - [x] Test all methods of Form entity
 - [x] Test all methods of Field entity
 - [x] Get review for equals method
