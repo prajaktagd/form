@@ -5,6 +5,7 @@ const isNotEmpty = (input) => input !== '';
 
 const identity = (value) => value;
 const splitByCommas = (text) => text.split(',');
+const joinBylines = (lines) => lines.join('\n');
 
 const parseDate = (dateString) => {
   const date = dateString.split('-');
@@ -39,21 +40,13 @@ const formFields = [
     prompt: 'Please enter your mobile number: ',
     validate: isValidMobNo,
     parse: identity
+  },
+  {
+    name: 'address',
+    prompt: ['Please enter address line 1: ', 'Please enter address line 2'],
+    validate: isNotEmpty,
+    parse: joinBylines
   }
 ];
 
 exports.formFields = formFields;
-
-// ,
-//   {
-//     field: 'addressLine1',
-//     label: 'Please enter address line 1: ',
-//     validate: isNotEmpty,
-//     parse: identity
-//   },
-//   {
-//     field: 'addressLine2',
-//     label: 'Please enter address line 2: ',
-//     validate: isNotEmpty,
-//     parse: identity
-//   },

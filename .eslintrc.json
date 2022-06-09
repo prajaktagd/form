@@ -116,6 +116,14 @@
           4
         ]
       }
+    },
+    {
+      "files": [
+        "fillForm.js"
+      ],
+      "rules": {
+        "no-console": "off"
+      }
     }
   ]
 }

@@ -25,7 +25,10 @@ class Form {
       throw new Error('Invalid Response');
     }
     currentField.fill(response);
-    this.#currentIndex++;
+
+    if (currentField.isFilled()) {
+      this.#currentIndex++;
+    }
   }
 
   getResponses() {
