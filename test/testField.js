@@ -30,7 +30,7 @@ describe('Field', () => {
 
   it('should provide the prompt of the field', () => {
     const nameField = new Field('name', 'Enter name');
-    assert.deepStrictEqual(nameField.getPrompt(), 'Enter name');
+    assert.strictEqual(nameField.getPrompt(), 'Enter name');
   });
 
   it('should assert if field is not filled', () => {
