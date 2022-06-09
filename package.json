@@ -1,0 +1,28 @@
+{
+  "name": "form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fillForm.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "bash test/testFillForm.sh && mocha",
+    "watchTest": "mocha -w -R dot",
+    "start": "node fillForm.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prajaktagd/form.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prajaktagd/form/issues"
+  },
+  "homepage": "https://github.com/prajaktagd/form#readme",
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  }
+}
